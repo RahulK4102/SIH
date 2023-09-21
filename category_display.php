@@ -28,7 +28,7 @@
           
         ?>
         <tr>
-            <th scope="row"><?php echo $row['category_id']; ?></th>
+            <th scope="row"><a href="selected_display.php ?display_category_id=<?php echo $row['category_id']; ?>" class="text-dark"><?php echo $row['category_id']; ?></a></th>
             <td><?php echo $row['class_id']; ?></td>
             <td><?php echo $row['category_name']; ?></td>
             <td><?php echo $row['Date_Time']; ?></td>

@@ -29,7 +29,7 @@
 
             ?>
                     <tr>
-                        <th scope="row"><?php echo $row['class_id']; ?></th>
+                        <th scope="row"><a href="selected_display.php ?display_class_id=<?php echo $row['class_id']; ?>" class="text-dark"><?php echo $row['class_id']; ?></a></th>
                         <td><?php echo $row['class_name']; ?></td>
                         <td><?php echo $row['Date_time']; ?></td>
                         <td>

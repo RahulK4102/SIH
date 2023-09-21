@@ -61,9 +61,16 @@ class Database{
         }
     }
     
-    public function display($table){
+    public function display($table,$join=null,$where=null){
         if($this->tableExits($table)){
             $sql = "SELECT * FROM $table";
+            if($join !=null){
+                $sql.= " JOIN $join";
+            }
+            if($where !=null){
+                $sql.= "WHERE $where";
+            }
+            echo $sql;
             $query = $this->mysqli->query($sql);
             if($query){
                 $this->result = $query->fetch_all(MYSQLI_ASSOC);
@@ -77,6 +84,23 @@ class Database{
         }
     }
 
+    public function delete($table,$where=null) {
+        if($this->tableExits($table)){
+            $sql = "DELETE FROM $table ";
+            if($where !=null){
+                $sql.= "WHERE $where";
+            }
+            if ($this->mysqli->query($sql)) {
+                array_push($this->result,$this->mysqli->affected_rows);
+                return true;
+            }else{
+                array_push($this->result,$this->mysqli->error);
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
     public function update($table,$param=array(),$where=null) {
         if($this->tableExits($table)){
             $args = array();
@@ -92,23 +116,6 @@ class Database{
                 return true;
             }else{
                 array_push($this->result,$this->mysqli->error);
-            }
-        }else{
-            return false;
-        }
-    }
-    public function delete($table,$where=null) {
-        if($this->tableExits($table)){
-            $sql = "DELETE FROM $table ";
-            if($where !=null){
-                $sql.= "WHERE $where";
-            }
-            if ($this->mysqli->query($sql)) {
-                array_push($this->result,$this->mysqli->affected_rows);
-                return true;
-            }else{
-                array_push($this->result,$this->mysqli->error);
-                return false;
             }
         }else{
             return false;
