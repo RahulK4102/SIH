@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
     
     $video->insert('video',['category_id'=>$category_id,'video_name'=>$video_name,'video_link'=>$video_link , 'video_id'=>$video_id] );
     echo '<script>alert("Inserted Succesfully ")</script>';
-    header('location:/sih/video_display.php');
+    header('location:/SIH1/video_display.php');
 }
 if (isset($_POST['update'])) {
     $video_id = $_GET['update_video_id'];
@@ -18,7 +18,7 @@ if (isset($_POST['update'])) {
     $video_link = $_POST['video_link'];
     $video->update('video', ['video_id' => $video_id, 'category_id' => $category_id, 'video_name'=>$video_name, 'video_link'=>$video_link], 'video_id =' . $video_id);
     echo '<script>alert("Inserted Succesfully ")</script>';
-    header('location:/sih/video_display.php');
+    header('location:/SIH1/video_display.php');
 }
 
 ?>

@@ -7,14 +7,14 @@ if (isset($_POST['submit'])) {
     
     $class->insert('class',['class_id'=>$class_id,'class_name'=>$class_name] );
     echo '<script>alert("Inserted Succesfully ")</script>';
-    header('location:/sih/class_display.php');
+    header('location:/SIH1/class_display.php');
 }
 if (isset($_POST['update'])) {
     $class_id = $_GET['update_class_id'];
     $class_name = $_POST['class_name'];
     $class->update('class', ['class_id' => $class_id, 'class_name' => $class_name],'class_id = '.$class_id);
     echo '<script>alert("updated Succesfully ")</script>';
-    header('location:/sih/class_display.php');
+    header('location:/SIH1/class_display.php');
 }
 ?>
 

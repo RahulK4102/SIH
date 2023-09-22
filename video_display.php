@@ -31,7 +31,7 @@
 
             ?>
                     <tr>
-                        <th scope="row"><?php echo $row['video_id']; ?></th>
+                        <th scope="row"><a href="selected_display.php ?display_video_id=<?php echo $row['video_id']; ?>" class="text-dark"><?php echo $row['video_id']; ?></a></th>
                         <td><?php echo $row['category_id']; ?></td>
                         <td><?php echo $row['video_name']; ?></td>
                         <td><?php echo $row['video_link']; ?></td>

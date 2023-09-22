@@ -36,6 +36,7 @@
 
                 ?>
                         <tr>
+                            <th scope="row"><a href="selected_display.php ?display_category_id=<?php echo $row['category_id']; ?>" class="text-dark"><?php echo $row['category_id']; ?></a></th>
                             <th scope="row"><?php echo $row['category_id']; ?></th>
                             <td><?php echo $row['class_name']; ?></td>
                             <td><?php echo $row['category_name']; ?></td>
@@ -45,14 +46,14 @@
                                 <button type="button" class="btn btn-danger"><a href="delete.php?delete_category_id=<?php echo $row['category_id']; ?>" class="text-light">DELETE</a></button>
                             </td>
                         </tr>
-            <?php
+                <?php
                     }
                 }
                 ?>
-                </tbody>
-            <?php
-            }
-            ?>
+            </tbody>
+        <?php
+        }
+        ?>
         <?php
         if (isset($_GET['display_category_id'])) {
         ?>
@@ -77,9 +78,9 @@
                 if ($result) {
                     foreach ($result as $row) {
 
-            ?>
+                ?>
                         <tr>
-                            <th scope="row"><?php echo $row['video_id']; ?></th>
+                            <th scope="row"><a href="selected_display.php ?display_video_id=<?php echo $row['video_id']; ?>" class="text-dark"><?php echo $row['video_id']; ?></a></th>
                             <td><?php echo $row['category_id']; ?></td>
                             <td><?php echo $row['video_name']; ?></td>
                             <td><?php echo $row['video_link']; ?></td>
@@ -93,11 +94,55 @@
             <?php
                     }
                 }
-            ?>
-            </tbody>
-            <?php
             }
-            ?>  
+            ?>
+            <?php
+            if (isset($_GET['display_video_id'])) {
+            ?>
+                <thead>
+                    <tr>
+                        <th scope="col">Video Id</th>
+                        <th scope="col">Category Id</th>
+                        <th scope="col">Video Name</th>
+                        <th scope="col">class Name</th>
+                        <th scope="col">Video Link</th>
+                        <th scope="col">Category Name</th>
+                        <th scope="col">Date/Time</th>
+                        <th scope="col">Edit</th>
+                    </tr>
+                </thead>
+            <tbody>
+                <?php
+                $display2 = new Database();
+                $video_id = $_GET['display_video_id'];
+                $join = "category ON video.category_id = category.category_id JOIN class on class.class_id=category.class_id ";
+                $result = $display2->display('video', $join, 'video.video_id = ' . $video_id);
+
+                if ($result) {
+                    foreach ($result as $row) {
+
+                ?>
+                        <tr>
+                            <th scope="row"><?php echo $row['video_id']; ?></th>
+                            <td><?php echo $row['category_id']; ?></td>
+                            <td><?php echo $row['video_name']; ?></td>
+                            <td><?php echo $row['class_name']; ?></td>
+                            <td><?php echo $row['video_link']; ?></td>
+                            <td><?php echo $row['category_name']; ?></td>
+                            <td><?php echo $row['Date_time']; ?></td>
+                            <td>
+                                <button type="button" name="update" class="btn btn-primary"><a href="./data/video.php ?update_video_id=<?php echo $row['video_id']; ?>" class="text-light">UPDATE</a></button>
+                                <button type="button" class="btn btn-danger"><a href="delete.php?delete_video_id=<?php echo $row['video_id']; ?>" class="text-light">DELETE</a></button>
+                            </td>
+                        </tr>
+                <?php
+                    }
+                }
+                ?>
+            </tbody>
+        <?php
+            }
+        ?>
     </table>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
