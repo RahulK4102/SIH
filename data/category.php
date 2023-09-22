@@ -23,8 +23,6 @@ if (isset($_POST['update'])) {
 
 $classes = $category->display('class');
 foreach ($classes as $row) {
-    echo $row['class_id'];
-    echo $row['class_name'];
 }
 ?>
 
@@ -36,35 +34,72 @@ foreach ($classes as $row) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Category Info</title>
 </head>
 
 <body>
     <div class="container">
         <form action="" method="post">
-            <div class="inputbox">
+            <table class="table">
+                <thead class="thead-dark" >
+                    <tr>
+                        <th scope="col">Category Id</th>
+                        <th scope="col">Class Id</th>
+                        <th scope="col">Category Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                            <div class="inputbox">
+                                <input type="name" name="category_id">
+                            </div>
+                        </th>
+                        <td>
+                            <div class="inputbox">
+                                <label for="">Class Id</label>
+                                <select name="class_id">
+                                    <?php
+                                    foreach ($classes as $row) {
+                                    ?>
+                                        <option value="<?php echo $row['class_id']; ?> "> <?php echo $row['class_name']; ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="inputbox">
+                                <input type="name" name="category_name">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <div class="inputbox">
                 <input type="name" name="category_id">
                 <label for="">Category Id</label>
             </div>
             <div class="inputbox">
-                <input type="quantity" name="class_id">
                 <label for="">Class Id</label>
                 <select name="class_id">
-                    <?php 
-                        foreach ($classes as $row) {
+                    <?php
+                    foreach ($classes as $row) {
                     ?>
-                    <option value ="<?php echo $row['class_id']; ?> "> <?php echo $row['class_id']; ?></option>
-                    <?php 
-                        }
+                        <option value="<?php echo $row['class_id']; ?> "> <?php echo $row['class_name']; ?></option>
+                    <?php
+                    }
                     ?>
                 </select>
             </div>
             <div class="inputbox">
                 <input type="name" name="category_name">
                 <label for="">Category Name</label>
-            </div>
-            <button name="submit">SUBMIT</button>
-            <button name="update">UPDATE</button>
+            </div> -->
+            <button name="submit" class="btn btn-primary">SUBMIT</button>
+            <button name="update" class="btn btn-primary">UPDATE</button>
         </form>
     </div>
 </body>

@@ -70,7 +70,6 @@ class Database{
             if($where !=null){
                 $sql.= "WHERE $where";
             }
-            echo $sql;
             $query = $this->mysqli->query($sql);
             if($query){
                 $this->result = $query->fetch_all(MYSQLI_ASSOC);
