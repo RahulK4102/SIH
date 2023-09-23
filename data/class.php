@@ -16,6 +16,18 @@ if (isset($_POST['update'])) {
     echo '<script>alert("updated Succesfully ")</script>';
     header('location:/SIH1/class_display.php');
 }
+if (isset($_GET['update_class_id'])) {
+
+    $update_class_id = $_GET['update_class_id'];
+    $classes = $class->display1('class', 'class_id =' . $update_class_id);
+
+    if ($classes !== false) {
+        foreach ($classes as $row) {
+        }
+    } else {
+        echo "Error fetching data from the database.";
+    }
+}
 ?>
 
 
@@ -45,15 +57,41 @@ if (isset($_POST['update'])) {
                     <tr>
                         <th scope="row">
                             <div class="inputbox">
-                                <input type="quantity" name="class_id">
-                                <label for="">Class Id</label>
+                                <?php
+                                if (isset($_GET['update_class_id'])) {
+                                    $update_class_id = $_GET['update_class_id'];
+                                ?>
+                                    <input type="quantity" name="class_id" value=<?php echo $update_class_id; ?>>
+                                    <label for="">Class Id</label>
+                                <?php
+                                } else {
+                                ?>
+                                    <input type="quantity" name="class_id">
+                                    <label for="">Class Id</label>
+                                <?php
+                                }
+                                ?>
                             </div>
                         </th>
                         <td>
                             <div class="inputbox">
-                                <input type="name" name="class_name">
-                                <label for="">Class Name</label>
+                                <?php
+                                if (isset($_GET['update_class_id'])) {
+                                    $update_class_id = $_GET['update_class_id'];
+                                ?>
+                                    <input type="name" name="class_name" value=<?php foreach ($classes as $row) {
+                                                                                    echo $row['class_name'];
+                                                                                } ?>>
+                                    <label for="">Class Name</label>
+                                <?php
+                                } else {
+                                ?>
+                                    <input type="quantity" name="class_name">
+                                    <label for="">Class Name</label>
                             </div>
+                        <?php
+                                }
+                        ?>
                         </td>
 
                     </tr>
@@ -67,8 +105,8 @@ if (isset($_POST['update'])) {
                 <input type="name" name="class_name">
                 <label for="">Class Name</label>
             </div> -->
-            <button name="submit" class="btn btn-primary" >Submit</button>
-            <button name="update" class="btn btn-primary" >UPDATE</button>
+            <button name="submit" class="btn btn-primary">Submit</button>
+            <button name="update" class="btn btn-primary">UPDATE</button>
         </form>
     </div>
 </body>

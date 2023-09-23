@@ -82,6 +82,24 @@ class Database{
             return false;
         }
     }
+    public function display1($table,$where=null){
+        if($this->tableExits($table)){
+            $sql = "SELECT * FROM $table ";
+            if($where !=null){
+                $sql.= "WHERE $where";
+            }
+            $query = $this->mysqli->query($sql);
+            if($query){
+                $this->result = $query->fetch_all(MYSQLI_ASSOC);
+                return $this->result;
+            }else{
+                array_push($this->result,$this->mysqli->error);
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
 
     public function delete($table,$where=null) {
         if($this->tableExits($table)){

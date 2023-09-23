@@ -20,10 +20,33 @@ if (isset($_POST['update'])) {
     echo '<script>alert("Inserted Succesfully ")</script>';
     header('location:/SIH1/video_display.php');
 }
-$classes = $video->display('category');
-foreach ($classes as $row) {
-}
+if(isset($_GET['add_class_id'])) {
+$add_class_id = $_GET['add_class_id'];
+$classes = $video->display1('category','class_id ='.$add_class_id);
 
+if ($classes !== false) {
+    foreach ($classes as $row) {
+    }
+} else {
+    echo "Error fetching data from the database.";
+}
+}
+if (isset($_GET['update_video_id'])) {
+
+    $update_video_id = $_GET['update_video_id'];
+    $classes = $video->display1('video', 'video_id =' . $update_video_id);
+
+    if ($classes !== false) {
+        foreach ($classes as $row) {
+            $category_id_1 =  $row['category_id'];
+        }
+        $classes2 = $video->display1('category', 'category_id = ' . $category_id_1);
+        foreach ($classes2 as $row) {
+        }
+    } else {
+        echo "Error fetching data from the database.";
+    }
+}
 ?>
 
 
@@ -43,7 +66,7 @@ foreach ($classes as $row) {
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Category Name</th>
+                        <th scope="col">Category Id</th>
                         <th scope="col">Video Name</th>
                         <th scope="col">Video Link</th>
                         <th scope="col">Video Id</th>
@@ -52,6 +75,15 @@ foreach ($classes as $row) {
                 <tbody>
                     <tr>
                         <th scope="row">
+                            <?php
+                            if(isset($_GET['update_video_id'])){
+                            ?>
+                            <div class="inputbox">
+                                        <input type="name" name="category_id" value=<?php foreach ($classes as $row) {echo $row['category_id'];} ?> >
+                                <?php
+                                }else{
+                                ?>
+                            </div>
                             <div class="inputbox">
                                 <select name="category_id">
                                     <?php
@@ -62,22 +94,60 @@ foreach ($classes as $row) {
                                     }
                                     ?>
                                 </select>
+                                <?php
+                                }
+                                ?>
                             </div>
                         </th>
                         <td>
+                        <?php
+                            if(isset($_GET['update_video_id'])){
+                            ?>
+                            <div class="inputbox">
+                                <input type="name" name="video_name" value= <?php foreach ($classes as $row) {echo $row['video_name'];} ?> >
+                            </div>
+                            <?php
+                            }else{
+                            ?>
                             <div class="inputbox">
                                 <input type="name" name="video_name">
                             </div>
+                            <?php
+                            }
+                            ?>
                         </td>
                         <td>
+                        <?php
+                            if(isset($_GET['update_video_id'])){
+                            ?>
+                            <div class="inputbox">
+                                <input type="url" name="video_link" value=<?php foreach ($classes as $row) {echo $row['video_link'];} ?> >
+                            </div>
+                            <?php
+                            }else{
+                            ?>
                             <div class="inputbox">
                                 <input type="url" name="video_link">
                             </div>
+                            <?php
+                            }
+                            ?>
                         </td>
                         <td>
+                        <?php
+                            if(isset($_GET['update_video_id'])){
+                            ?>
+                            <div class="inputbox">
+                                <input type="quantity" name="video_id" value=<?php foreach ($classes as $row) {echo $row['video_id'];} ?> >
+                            </div>
+                            <?php
+                            }else{
+                            ?>
                             <div class="inputbox">
                                 <input type="quantity" name="video_id">
                             </div>
+                            <?php
+                            }?>
                         </td>
                     </tr>
                 </tbody>

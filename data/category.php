@@ -21,9 +21,27 @@ if (isset($_POST['update'])) {
     header('location:/SIH1/category_display.php');
 }
 
-$classes = $category->display('class');
-foreach ($classes as $row) {
+
+$classes1 = $category->display('class');
+foreach ($classes1 as $row) {
 }
+if (isset($_GET['update_category_id'])) {
+
+    $update_category_id = $_GET['update_category_id'];
+    $classes = $category->display1('category', 'category_id =' . $update_category_id);
+
+    if ($classes !== false) {
+        foreach ($classes as $row) {
+            $class_id_1 =  $row['class_id'];
+        }
+        $classes2 = $category->display1('class', 'class_id = ' . $class_id_1);
+        foreach ($classes2 as $row) {
+        }
+    } else {
+        echo "Error fetching data from the database.";
+    }
+}
+
 ?>
 
 
@@ -42,7 +60,7 @@ foreach ($classes as $row) {
     <div class="container">
         <form action="" method="post">
             <table class="table">
-                <thead class="thead-dark" >
+                <thead class="thead-dark">
                     <tr>
                         <th scope="col">Category Id</th>
                         <th scope="col">Class Id</th>
@@ -53,27 +71,75 @@ foreach ($classes as $row) {
                     <tr>
                         <th scope="row">
                             <div class="inputbox">
-                                <input type="name" name="category_id">
+                                <?php
+                                if (isset($_GET['update_category_id'])) {
+                                    $update_category_id = $_GET['update_category_id'];
+                                ?>
+                                    <input type="quantity" name="category_id" value=<?php
+                                                                                    echo $update_category_id;
+                                                                                    ?>>
+                                <?php
+                                } else {
+                                ?>
+                                    <input type="quantity" name="category_id">
+                                <?php
+                                }
+                                ?>
                             </div>
                         </th>
                         <td>
-                            <div class="inputbox">
-                                <label for="">Class Id</label>
-                                <select name="class_id">
-                                    <?php
-                                    foreach ($classes as $row) {
-                                    ?>
-                                        <option value="<?php echo $row['class_id']; ?> "> <?php echo $row['class_name']; ?></option>
-                                    <?php
-                                    }
-                                    ?>
-                                </select>
-                            </div>
+                            <?php
+                            if (isset($_GET['update_category_id'])) {
+                            ?>
+                                <div class="inputbox">
+                                    <label for="">Class Id</label>
+                                    <select name="class_id">
+                                        <?php
+                                        foreach ($classes as $row) {
+                                        ?>
+                                            <option value="<?php echo $row['class_id'];
+                                                        } ?> "> <?php foreach ($classes2 as $row) {
+                                                                                                    echo $row['class_name']; ?></option>
+                                        <?php
+                                                                                                }
+                                                                                            } else {
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="inputbox">
+                                    <label for="">Class Id</label>
+                                    <select name="class_id">
+                                        <?php
+                                                                                                foreach ($classes1 as $row) {
+                                        ?>
+                                            <option value="<?php echo $row['class_id']; ?> "> <?php echo $row['class_name']; ?></option>
+                                        <?php
+                                                                                                }
+                                        ?>
+                                    </select>
+                                </div>
+                            <?php
+                                                                                            }
+                            ?>
                         </td>
                         <td>
-                            <div class="inputbox">
-                                <input type="name" name="category_name">
-                            </div>
+                            <?php
+                            if (isset($_GET['update_category_id'])) {
+                            ?>
+                                <div class="inputbox">
+                                    <input type="name" name="category_name" value=<?php foreach ($classes as $row) {
+                                                                                      echo $row['category_name'];
+                                                                                    } ?>>
+                                </div>
+                            <?php
+                            } else {
+                            ?>
+                                <div class="inputbox">
+                                    <input type="name" name="category_name">
+                                </div>
+                            <?php
+                            }
+                            ?>
                         </td>
                     </tr>
                 </tbody>
