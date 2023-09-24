@@ -35,6 +35,7 @@ if (isset($_GET['update_video_id'])) {
 
     $update_video_id = $_GET['update_video_id'];
     $classes = $video->display1('video', 'video_id =' . $update_video_id);
+    $classes3 = $video->display('category');
 
     if ($classes !== false) {
         foreach ($classes as $row) {
@@ -46,6 +47,16 @@ if (isset($_GET['update_video_id'])) {
     } else {
         echo "Error fetching data from the database.";
     }
+}
+
+if (isset($_GET['class_id?'])){
+    ?>
+    <script>
+        var classId = prompt("In Which class do you want to add details?",'Enter Number only');
+        var classid = parseInt(classId);
+        location.replace("http://localhost/SIH1/data/video.php?add_class_id=" + classid);
+    </script>
+    <?php
 }
 ?>
 
@@ -79,7 +90,19 @@ if (isset($_GET['update_video_id'])) {
                             if(isset($_GET['update_video_id'])){
                             ?>
                             <div class="inputbox">
-                                        <input type="name" name="category_id" value=<?php foreach ($classes as $row) {echo $row['category_id'];} ?> >
+                                <select name="category_id" >
+                                    <?php
+                                    foreach($classes as $row){
+                                        ?>
+                                        <option value="<?php echo $row['category_id']; ?>"> <?php echo $row['category_id']; ?> </option>
+                                        <?php } ?>
+                                        <?php
+                                        foreach($classes3 as $row){
+                                        ?>
+                                        <option value="<?php echo $row['category_id']; ?> "> <?php echo $row['category_id']; ?></option>
+                                        <?php } ?>
+                                </select>
+                                        <!-- <input type="name" name="category_id" value=<?php foreach ($classes as $row) {echo $row['category_name'];} ?> > -->
                                 <?php
                                 }else{
                                 ?>

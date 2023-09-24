@@ -21,7 +21,6 @@ if (isset($_POST['update'])) {
     header('location:/SIH1/category_display.php');
 }
 
-
 $classes1 = $category->display('class');
 foreach ($classes1 as $row) {
 }
@@ -29,6 +28,7 @@ if (isset($_GET['update_category_id'])) {
 
     $update_category_id = $_GET['update_category_id'];
     $classes = $category->display1('category', 'category_id =' . $update_category_id);
+    $classes3 = $category->display('class');
 
     if ($classes !== false) {
         foreach ($classes as $row) {
@@ -75,9 +75,7 @@ if (isset($_GET['update_category_id'])) {
                                 if (isset($_GET['update_category_id'])) {
                                     $update_category_id = $_GET['update_category_id'];
                                 ?>
-                                    <input type="quantity" name="category_id" value=<?php
-                                                                                    echo $update_category_id;
-                                                                                    ?>>
+                                    <input type="quantity" name="category_id" value=<?php echo $update_category_id;  ?>>
                                 <?php
                                 } else {
                                 ?>
@@ -97,29 +95,35 @@ if (isset($_GET['update_category_id'])) {
                                         <?php
                                         foreach ($classes as $row) {
                                         ?>
-                                            <option value="<?php echo $row['class_id'];
-                                                        } ?> "> <?php foreach ($classes2 as $row) {
-                                                                                                    echo $row['class_name']; ?></option>
+                                            <option value="<?php echo $row['class_id'];} ?> "> <?php foreach ($classes2 as $row) {
+                                            echo $row['class_name']; ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                            <?php foreach ($classes1 as $row) {
+                                        ?>
+                                            <option value="<?php echo $row['class_id']; ?> "> <?php echo $row['class_name']; ?></option>
                                         <?php
-                                                                                                }
-                                                                                            } else {
+                                         }
+                                        ?>
+                                        <?php
+                                        } else {
                                         ?>
                                     </select>
                                 </div>
                                 <div class="inputbox">
                                     <label for="">Class Id</label>
                                     <select name="class_id">
-                                        <?php
-                                                                                                foreach ($classes1 as $row) {
+                                        <?php foreach ($classes1 as $row) {
                                         ?>
                                             <option value="<?php echo $row['class_id']; ?> "> <?php echo $row['class_name']; ?></option>
                                         <?php
-                                                                                                }
+                                         }
                                         ?>
                                     </select>
                                 </div>
                             <?php
-                                                                                            }
+                              }
                             ?>
                         </td>
                         <td>
@@ -127,9 +131,7 @@ if (isset($_GET['update_category_id'])) {
                             if (isset($_GET['update_category_id'])) {
                             ?>
                                 <div class="inputbox">
-                                    <input type="name" name="category_name" value=<?php foreach ($classes as $row) {
-                                                                                      echo $row['category_name'];
-                                                                                    } ?>>
+                                    <input type="name" name="category_name" value=<?php foreach ($classes as $row) {  echo $row['category_name'];  } ?>>
                                 </div>
                             <?php
                             } else {
